@@ -1,23 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://unpkg.com/feather-icons"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Urban Sports Check-in</title>
-  <script src="https://unpkg.com/feather-icons"></script>
+  <title>Urban Sports Check-in Clone</title>
   <style>
     body {
       margin: 0;
-      font-family: "Arial", sans-serif;
-      background-color: #162840;
+      font-family: 'Arial', sans-serif;
+      background-color: #1b2d47;
       color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .container {
+      position: relative;
+      margin-top: 50px;
+      width: 90%;
       max-width: 400px;
-      margin: 0 auto;
-      padding: 40px 20px;
       text-align: center;
+    }
+
+    .upload-container {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    #profile-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+    }
+
+
+    .profile-wrapper {
+    position: absolute;
+    top: -70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 140px;
+    z-index: 5;
+    }
+
+
+        #profile-pic {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 5px solid white;
+        object-fit: cover;
+        position: relative;
+        z-index: 2;
+        }
+
+        .circle-animation {
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 5px dashed #50c18d;
+        animation: spin 1.5s linear infinite;
+        display: none;
+        z-index: 1;
+        }
+
+        @keyframes spin {
+        100% { transform: rotate(360deg); }
+        }
+
+
+    .circle-animation {
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 5px dashed #4afaa5;
+      animation: spin 2s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .checkin-box {
+    background-color: #4dbb89;
+    border-radius: 16px;
+    padding: 100px 20px 20px 20px;
+    position: relative;
+    margin-top: 80px;
+    min-height: 320px; /* ⬅ keeps card height consistent */
+    box-sizing: border-box;
+    }
+
+
+
+
+    .checkmark {
+        position: absolute;
+        bottom: -8px;
+        right: -8px;
+        background-color: white;
+        color: #4dbb89;
+        font-size: 20px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+
+    .title {
+        font-size: 16px;
+        font-weight: normal;
+        text-align: center;
+        margin-bottom: 5px;
+        }
+
+        .name {
+        font-size: 28px;
+        font-weight: bold;
+        text-align: center;
+        margin: 5px 0;
+        }
+
+        .id {
+        font-size: 14px;
+        text-align: center;
+        margin-bottom: 10px;
+        }
+
+        .label {
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 0;
+        }
+
+        .location {
+        font-size: 16px;
+        font-weight: normal;
+        text-align: center;
+        margin-bottom: 10px;
+        margin-top: -2px;
+        }
+
+
+
+    .time {
+      font-size: 15px;
+      margin: 5px 0;
     }
 
     input[type="text"], input[type="file"] {
@@ -29,101 +176,75 @@
       font-size: 16px;
     }
 
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      background-color: #0f1a30;
+      padding: 10px 0;
+    }
+
+    .time-block {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        font-size: 15px;
+        width: 100%;
+        margin-top: 20px;
+        }
+
+        .checkin-text {
+        text-align: left;
+        }
+
+        .timer {
+        text-align: right;
+        }
+
+
+    .footer-item {
+      color: white;
+    }
+
     button {
+      margin-top: 10px;
+      background-color: #50c18d;
+      color: white;
       padding: 10px 20px;
       border: none;
-      background-color: #4dbb89;
-      color: white;
-      font-size: 16px;
-      border-radius: 6px;
+      border-radius: 5px;
       cursor: pointer;
-      margin-bottom: 20px;
     }
 
-    .checkin-box {
-      background-color: #4dbb89;
-      border-radius: 16px;
-      padding: 100px 20px 20px 20px;
-      position: relative;
-      margin-top: 80px;
-      min-height: 320px;
-      box-sizing: border-box;
+    #checkin-time {
+      font-weight: bold;
     }
-
-    .profile-wrapper {
-      position: absolute;
-      top: -75px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 140px;
-      height: 140px;
-      z-index: 5;
-    }
-
-    .ring-wrapper {
-      position: relative;
-      width: 140px;
-      height: 140px;
-    }
-
-    .circle-animation {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      border: 5px dashed #4afaa5;
-      animation: spin 2s linear infinite;
-      display: none;
-      z-index: 1;
-    }
-
-    @keyframes spin {
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    #profile-pic {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-      position: relative;
-      z-index: 2;
-    }
-
-    .checkmark {
-      position: absolute;
-      bottom: -8px;
-      right: -8px;
-      background-color: white;
-      color: #4dbb89;
-      font-size: 20px;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-
     .card-icons {
-      position: absolute;
-      top: 15px;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 15px;
-      pointer-events: none;
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    pointer-events: none; /* makes them non-functional */
     }
 
-    .icon-button {
-      pointer-events: none;
+    .icon-button:not(.icon-x):not(.icon-share) {
+    width: 36px;
+    height: 36px;
+    background-color: white;
+    border-radius: 50%;
+    color: #4dbb89;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    pointer-events: none;
     }
 
     .icon-x {
@@ -135,6 +256,15 @@
       padding-left: 4px;
     }
 
+    .icon-share {
+      background: none;
+      color: white;
+      font-size: 22px;
+      width: auto;
+      height: auto;
+      padding-right: 2px;
+    }
+
     .icon-share svg {
       width: 24px;
       height: 24px;
@@ -142,149 +272,114 @@
       stroke-width: 2;
     }
 
-    .title {
-      font-size: 16px;
-      font-weight: normal;
-      text-align: center;
-      margin-bottom: 5px;
-    }
 
-    .name {
-      font-size: 28px;
-      font-weight: bold;
-      text-align: center;
-      margin: 5px 0;
-    }
-
-    .id {
-      font-size: 14px;
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .label {
-      font-size: 16px;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 0;
-    }
-
-    .location {
-      font-size: 16px;
-      font-weight: normal;
-      text-align: center;
-      margin-bottom: 10px;
-      margin-top: -2px;
-    }
-
-    .time-block {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 20px;
-      font-size: 14px;
-    }
-
-    .checkin-text {
-      text-align: left;
-    }
-
-    .checkin-text span {
-      font-weight: bold;
-    }
-
-    .timer {
-      text-align: right;
-    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <input type="file" id="imageUpload" />
+
+      <input type="file" accept="image/*" onchange="previewImage(event)">
+    </div>
+
     <input type="text" id="fullName" placeholder="Enter your name" />
     <input type="text" id="location" placeholder="Enter location" />
+
     <button onclick="checkIn()">Check In</button>
 
     <div class="checkin-box" id="checkin-box" style="display: none;">
-      <div class="profile-wrapper">
-        <div class="ring-wrapper">
-          <div class="circle-animation" id="animation-ring"></div>
-          <img id="profile-pic" src="https://via.placeholder.com/140" alt="Profile Picture" />
+        <div class="profile-wrapper">
+            <div class="circle-animation" id="animation-ring"></div>
+            <img id="profile-pic" src="https://via.placeholder.com/140" alt="Profile Picture" />
+            <div class="checkmark">✔</div>
         </div>
-        <div class="checkmark">✔</div>
-      </div>
-
-      <div class="card-icons">
+        <div class="card-icons">
         <div class="icon-button icon-x">✕</div>
         <div class="icon-button icon-share" data-feather="share"></div>
-      </div>
+        </div>
 
       <div class="title">Check-in successful</div>
       <div class="name">Julius Guy–James</div>
       <div class="id">416803578</div>
       <div class="label">Fitness</div>
       <div class="location" id="display-location"></div>
-
       <div class="time-block">
-        <div class="checkin-text">Checked-in at<br><span id="checkin-time"></span></div>
+        <div class="checkin-text">
+            Checked-in at<br>
+            <span id="checkin-time"></span>
+        </div>
         <div class="timer">⏱ <span id="timer">00:00</span></div>
-      </div>
+        </div>
+
     </div>
   </div>
 
+  <div class="footer">
+    <div class="footer-item">📍 Venues</div>
+    <div class="footer-item">🏋️ Classes</div>
+    <div class="footer-item">✅ Check-in</div>
+    <div class="footer-item">👤 Profile</div>
+  </div>
+
   <script>
-    let startTime;
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function(){
+        const output = document.getElementById('profile-pic');
+        output.src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
 
     function checkIn() {
-      const file = document.getElementById("imageUpload").files[0];
-      const reader = new FileReader();
-      const name = document.getElementById("fullName").value;
-      const location = document.getElementById("location").value;
-      const nameDisplay = document.querySelector(".name");
-      const locationDisplay = document.getElementById("display-location");
+        const anim = document.getElementById("animation-ring");
+        const box = document.getElementById("checkin-box");
+        const loc = document.getElementById("location").value;
+        const displayLoc = document.getElementById("display-location");
+        const time = document.getElementById("checkin-time");
 
-      nameDisplay.innerText = name || "Julius Guy–James";
-      locationDisplay.innerText = location || "Berlin";
+        setTimeout(() => {
+            anim.style.display = "none";
+            box.style.display = "block";
+            // Show rotating ring after card appears
+            setTimeout(() => {
+            anim.style.display = "block";
+            }, 400); // short delay to make it feel natural
 
-      if (file) {
-        reader.onload = function (e) {
-          document.getElementById("profile-pic").src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
+            document.querySelector('input[type="file"]').style.display = "none";
+            const name = document.getElementById("fullName").value;
+            const nameDisplay = document.querySelector('.name');
+            nameDisplay.innerText = name || "Julius Guy–James";
+            document.getElementById("fullName").style.display = "none";
+            document.getElementById("location").style.display = "none";
+            document.querySelector('button').style.display = "none";
 
-      document.getElementById("imageUpload").style.display = "none";
-      document.getElementById("fullName").style.display = "none";
-      document.getElementById("location").style.display = "none";
-      document.querySelector("button").style.display = "none";
-      document.getElementById("checkin-box").style.display = "block";
-      document.getElementById("animation-ring").style.display = "block";
+            // Fill in details
+            displayLoc.innerText = loc || "Unbekannter Ort";
 
-      const now = new Date();
-      const formatted = now.toLocaleString("de-DE", {
-        day: "2-digit",
-        month: "short",
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-      document.getElementById("checkin-time").innerText = formatted;
+            const now = new Date();
+            const options = { day: '2-digit', month: 'long' };
+            const datePart = now.toLocaleDateString('de-DE', options);
+            const timePart = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', hour12: false });
 
-      startTime = new Date();
-      updateTimer();
-    }
+           time.innerText = `${datePart}, ${timePart}`;
 
-    function updateTimer() {
-      const timerSpan = document.getElementById("timer");
-      setInterval(() => {
-        const now = new Date();
-        const diff = Math.floor((now - startTime) / 1000);
-        const minutes = String(Math.floor(diff / 60)).padStart(2, "0");
-        const seconds = String(diff % 60).padStart(2, "0");
-        timerSpan.innerText = `${minutes}:${seconds}`;
-      }, 1000);
-    }
+            // Start timer
+            let seconds = 0;
+            let minutes = 0;
+            const timerEl = document.getElementById("timer");
+            setInterval(() => {
+            seconds++;
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+            }
+            const formatted = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            timerEl.textContent = formatted;
+            }, 1000);
 
-    feather.replace();
+        }, 2000);
+        }
+        feather.replace();
   </script>
+
 </body>
 </html>
