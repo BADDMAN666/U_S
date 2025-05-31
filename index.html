@@ -29,15 +29,25 @@
       margin-bottom: 30px;
     }
 
-    #profile-pic {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    position: relative;
-    z-index: 2;
+    .upload-label {
+      display: inline-block;
+      background-color: #50c18d;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 10px;
     }
 
+
+    #profile-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 5px solid white;
+      object-fit: cover;
+    }
 
     .profile-wrapper {
     position: absolute;
@@ -77,34 +87,16 @@
         100% { transform: rotate(360deg); }
         }
 
-
-    .circle-animation {
-      position: absolute;
-      top: -5px;
-      left: -5px;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 5px dashed #4afaa5;
-      animation: spin 2s linear infinite;
-      display: none;
-    }
-
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
-    }
-
     .checkin-box {
     background-color: #4dbb89;
-    border-radius: 16px;
+    border-radius: 10px;
     padding: 100px 20px 20px 20px;
     position: relative;
     margin-top: 80px;
-    min-height: 320px; /* ⬅ keeps card height consistent */
-    box-sizing: border-box;
+    min-width: 222px;
+    max-width: 90%;
+    width: auto;
     }
-
-
 
 
     .checkmark {
@@ -168,13 +160,15 @@
     }
 
     input[type="text"], input[type="file"] {
-      width: 100%;
+      width: 80%;
+      max-width: 300px;
       margin-bottom: 10px;
       padding: 10px;
       border-radius: 6px;
       border: none;
       font-size: 16px;
     }
+
 
 
     .footer {
@@ -277,7 +271,8 @@
 </head>
 <body>
 
-      <input type="file" accept="image/*" onchange="previewImage(event)">
+      <label for="upload-input" class="upload-label" id="upload-label">Upload Profile Picture</label>
+      <input type="file" id="upload-input" accept="image/*" onchange="previewImage(event)" style="display: none;">
     </div>
 
     <input type="text" id="fullName" placeholder="Enter your name" />
@@ -297,8 +292,8 @@
         </div>
 
       <div class="title">Check-in successful</div>
-      <div class="name">Julius Guy–James</div>
-      <div class="id">416803578</div>
+      <div class="name" id="display-name"></div>
+      <div class="id" id="user-id"></div>
       <div class="label">Fitness</div>
       <div class="location" id="display-location"></div>
       <div class="time-block">
@@ -345,12 +340,16 @@
             }, 400); // short delay to make it feel natural
 
             document.querySelector('input[type="file"]').style.display = "none";
+            document.getElementById("upload-label").style.display = "none";
             const name = document.getElementById("fullName").value;
-            const nameDisplay = document.querySelector('.name');
-            nameDisplay.innerText = name || "Julius Guy–James";
+            const nameDisplay = document.getElementById("display-name");
+            nameDisplay.innerText = name || "Anonym";
             document.getElementById("fullName").style.display = "none";
             document.getElementById("location").style.display = "none";
             document.querySelector('button').style.display = "none";
+            // Generate random 9-digit ID
+            const userId = Math.floor(100000000 + Math.random() * 900000000);
+            document.getElementById("user-id").innerText = userId;
 
             // Fill in details
             displayLoc.innerText = loc || "Unbekannter Ort";
