@@ -75,37 +75,40 @@
 
     .profile-wrapper {
       position: absolute;
-      top: -60px; /* halb über der Karte */
+      top: -100px;
       left: 50%;
       transform: translateX(-50%);
-      width: 150px;
-      height: 150px;
+      width: 200px;
+      height: 200px;
       z-index: 5;
     }
 
     .circle-container {
       position: relative;
-      width: 150px;
-      height: 150px;
+      width: 200px;
+      height: 200px;
     }
 
     #profile-pic {
       position: absolute;
-      top: 25px; /* damit etwas Platz zum Kreis bleibt */
-      left: 25px;
-      width: 100px;
-      height: 100px;
+      top: 50%;
+      left: 50%;
+      width: 150px;
+      height: 150px;
+      transform: translate(-50%, -50%);
       border-radius: 50%;
       object-fit: cover;
       z-index: 2;
     }
 
+
+
     svg {
       position: absolute;
       top: 0;
       left: 0;
-      width: 150px;
-      height: 150px;
+      width: 200px;
+      height: 200px;
       pointer-events: none;
     }
 
@@ -127,20 +130,24 @@
 
     .checkmark {
       position: absolute;
-      bottom: -8px;
-      right: -8px;
+      bottom: 26px;
+      right: 26px;
       background-color: white;
       color: #4dbb89;
-      font-size: 20px;
-      width: 36px;
-      height: 36px;
+      font-size: 22px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 10;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      font-family: Arial, sans-serif;
+      font-weight: bold;
     }
+
+
 
     .card-icons {
       position: absolute;
@@ -160,9 +167,28 @@
       padding: 0;
       margin: 0;
       position: absolute;
-      top: -11px;
+      top: 10px;
       left: 10px;
     }
+
+    .icon-share {
+      position: absolute;
+      top: 7px;
+      right: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .icon-share img {
+      width: 27px;
+      height: 27px;
+    }
+
 
 
     .title {
@@ -248,14 +274,13 @@
 
   <div class="checkin-box" id="checkin-box" style="display: none;">
     <div class="profile-wrapper">
-      <!-- Kreis-Hintergrund -->
       <div class="circle-container">
-        <!-- Statische Linie, 180° gedreht -->
+        <!-- Static Circle -->
         <svg class="static-ring">
           <circle
-            cx="75"
-            cy="75"
-            r="70"
+            cx="100"
+            cy="100"
+            r="90"
             stroke="white"
             stroke-width="3"
             fill="none"
@@ -264,12 +289,12 @@
           />
         </svg>
 
-        <!-- Rotierender Ring -->
+        <!-- Rotating Circle -->
         <svg class="rotating-ring">
           <circle
-            cx="75"
-            cy="75"
-            r="70"
+            cx="100"
+            cy="100"
+            r="90"
             stroke="white"
             stroke-width="2.2"
             fill="none"
@@ -278,14 +303,21 @@
           />
         </svg>
 
-        <!-- Profilbild -->
-        <img id="profile-pic" src="https://via.placeholder.com/100" alt="Profile Picture" />
+        <!-- Profile Image -->
+        <img id="profile-pic" src="assets/anon.png" alt="Profile Picture" />
+
+        <!-- Checkmark -->
+        <div class="checkmark">✔</div>
       </div>
     </div>
 
-    <div class="card-icons">
-      <div class="icon-button icon-x">✕</div>
+
+
+    <div class="icon-x">✕</div>
+    <div class="icon-share">
+      <img src="assets/Share_Icon.svg" alt="Share Icon" />
     </div>
+
 
     <div class="title">Check-in successful</div>
     <div class="name" id="display-name"></div>
