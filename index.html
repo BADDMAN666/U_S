@@ -75,13 +75,14 @@
 
     .profile-wrapper {
       position: absolute;
-      top: -100px;
+      top: -80px;
       left: 50%;
       transform: translateX(-50%);
-      width: 200px;
-      height: 200px;
+      width: 160px;
+      height: 160px;
       z-index: 5;
     }
+
 
     .circle-container {
       position: relative;
@@ -290,41 +291,17 @@
       margin-right: -63px;
     }
 
-    @media screen and (max-width: 480px) {
-      .checkin-box {
-        transform: scale(1.3);
-        transform-origin: top center;
-      }
-
-      .profile-wrapper {
-        transform: scale(1.3);
-        transform-origin: bottom center;
-      }
-
-      .circle-container {
-        width: 220px;
-        height: 220px;
-      }
-
-      #profile-pic {
-        width: 165px;
-        height: 165px;
-      }
-
-      .checkmark {
-        width: 42px;
-        height: 42px;
-        font-size: 24px;
-        bottom: 22px;
-        right: 22px;
-      }
-
-      svg {
-        width: 220px;
-        height: 220px;
-      }
+    .circle-container,
+    svg.static-ring,
+    svg.rotating-ring {
+      width: 160px;
+      height: 160px;
     }
 
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+    }
 
 
   </style>
