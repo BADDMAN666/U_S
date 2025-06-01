@@ -67,7 +67,7 @@
       border-radius: 10px;
       padding: 100px 20px 20px 20px;
       position: relative;
-      margin-top: 80px;
+      margin-top: 0px;
       min-width: 222px;
       max-width: 90%;
       width: auto;
@@ -260,6 +260,21 @@
     .footer-item {
       color: white;
     }
+    .checkin-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
   </style>
 </head>
 <body>
@@ -272,7 +287,8 @@
     <button onclick="checkIn()">Check In</button>
   </div>
 
-  <div class="checkin-box" id="checkin-box" style="display: none;">
+  <div class="checkin-container" id="checkin-container" style="display: none;">
+    <div class="checkin-box" id="checkin-box">
     <div class="profile-wrapper">
       <div class="circle-container">
         <!-- Static Circle -->
@@ -351,12 +367,17 @@
     }
 
     function checkIn() {
+      const wrapper = document.getElementById("checkin-container");
       const box = document.getElementById("checkin-box");
       const loc = document.getElementById("location").value;
       const displayLoc = document.getElementById("display-location");
       const time = document.getElementById("checkin-time");
 
       setTimeout(() => {
+        // ✅ Show the flex-wrapper for scrollable & centered layout
+        wrapper.style.display = "flex";
+
+        // ✅ (Optional) Keep the box visible too, if needed
         box.style.display = "block";
 
         document.querySelector('input[type="file"]').style.display = "none";
@@ -392,6 +413,7 @@
         }, 1000);
       }, 2000);
     }
+
   </script>
 </body>
 </html>
