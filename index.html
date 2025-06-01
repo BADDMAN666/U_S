@@ -260,7 +260,14 @@
 
     .footer-item {
       color: white;
+      text-align: center;
+      font-size: 12px;
     }
+    .footer-item img {
+      display: block;
+      margin: 0 auto 4px;
+    }
+
     .checkin-container {
       display: flex;
       justify-content: center;
@@ -274,6 +281,13 @@
       top: 0;
       left: 0;
       z-index: 1;
+    }
+
+    .timer-icon {
+      width: 18px;
+      height: 18px;
+      vertical-align: middle;
+      margin-right: -63px;
     }
 
   </style>
@@ -346,16 +360,18 @@
         Checked-in at<br>
         <span id="checkin-time"></span>
       </div>
-      <div class="timer">⏱ <span id="timer">00:00</span></div>
+      <img src="assets/timer.svg" alt="Timer Icon" class="timer-icon" />
+      <span id="timer">00:00</span>
     </div>
   </div>
 
   <div class="footer">
-    <div class="footer-item">📍 Venues</div>
-    <div class="footer-item">🏋️ Classes</div>
-    <div class="footer-item">✅ Check-in</div>
-    <div class="footer-item">👤 Profile</div>
+    <div class="footer-item"><img src="assets/venues.svg" alt="Venues" width="24"><br>Venues</div>
+    <div class="footer-item"><img src="assets/classes.svg" alt="Classes" width="24"><br>Classes</div>
+    <div class="footer-item"><img src="assets/checkin.svg" alt="Check-in" width="24"><br>Check-in</div>
+    <div class="footer-item"><img src="assets/profile.svg" alt="Profile" width="24"><br>Profile</div>
   </div>
+
 
   <script>
     function previewImage(event) {
