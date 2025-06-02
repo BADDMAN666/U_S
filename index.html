@@ -6,8 +6,8 @@
   <title>Urban Sports Check-in Clone</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: #1b2d47;
       color: white;
       display: flex;
@@ -65,7 +65,7 @@
     .checkin-box {
       background-color: #4dbb89;
       border-radius: 10px;
-      padding: 125px 30px 20px 30px;
+      padding: 125px 30px 55px 30px;
       position: relative;
       margin-top: -30px;
       min-width: 222px;
@@ -189,6 +189,51 @@
       height: 27px;
     }
 
+    .pinned-date {
+      position: absolute;
+      bottom: 20px;
+      left: 25px;
+      font-size: 14px;
+      line-height: 1.2;
+      text-align: left;
+    }
+
+    .pinned-icon {
+      position: absolute;
+      bottom: 22px;
+      right: 70px;
+      width: 18px;
+      height: 18px;
+    }
+
+    .pinned-timer {
+      position: absolute;
+      bottom: 20px;
+      right: 25px;
+      font-size: 15px;
+    }
+
+    .timer-wrapper {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      gap: 6px;
+      position: absolute;
+      bottom: 20px;
+      right: 25px; 
+      font-size: 18px;
+      color: white;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+
+
+    .timer-icon {
+      width: 18px;
+      height: 18px;
+    }
+
     .title {
       font-size: 16px;
       font-weight: normal;
@@ -242,7 +287,10 @@
     }
 
     #checkin-time {
-      font-weight: bold;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 600;
+      font-size: 18px;
+      display: inline-block;
     }
 
     .footer {
@@ -284,7 +332,7 @@
       width: 18px;
       height: 18px;
       vertical-align: middle;
-      margin-right: -63px;
+      margin-right: -1px;
     }
 
     .circle-container,
@@ -383,26 +431,27 @@
       </div>
     </div>
 
-
-
-    <div class="icon-x">✕</div>
+    <div id="close-btn" class="icon-x">✕</div>
     <div class="icon-share">
       <img src="assets/Share_Icon.svg" alt="Share Icon" />
     </div>
-
 
     <div class="title">Check-in successful</div>
     <div class="name" id="display-name"></div>
     <div class="id" id="user-id"></div>
     <div class="label">Fitness</div>
     <div class="location" id="display-location"></div>
-    <div class="time-block">
-      <div class="checkin-text">
-        Checked-in at<br>
-        <span id="checkin-time"></span>
-      </div>
-      <img src="assets/timer.svg" alt="Timer Icon" class="timer-icon" />
+    <!-- Time Text -->
+    <div class="checkin-text pinned-date">
+      Checked-in at<br>
+      <span id="checkin-time"></span>
+    </div>
+
+    <!-- Clock Icon -->
+    <div class="timer-wrapper">
       <span id="timer">00:00</span>
+      <img src="assets/timer.svg" alt="Timer Icon" class="timer-icon" />
+    </div>
     </div>
   </div>
 
@@ -415,6 +464,7 @@
 
 
   <script>
+    let timerInterval;
     function previewImage(event) {
       const reader = new FileReader();
       reader.onload = function(){
@@ -452,25 +502,67 @@
         displayLoc.innerText = loc || "Unbekannter Ort";
 
         const now = new Date();
-        const options = { day: '2-digit', month: 'long' };
-        const datePart = now.toLocaleDateString('de-DE', options);
+        const options = { month: 'short', day: '2-digit' };
+        const datePart = now.toLocaleDateString('en-US', options);
         const timePart = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', hour12: false });
         time.innerText = `${datePart}, ${timePart}`;
 
+        const timerEl = document.getElementById("timer");
         let seconds = 0;
         let minutes = 0;
-        const timerEl = document.getElementById("timer");
-        setInterval(() => {
+        let hours = 0;
+
+        timerInterval = setInterval(() => {
           seconds++;
+
           if (seconds >= 60) {
             seconds = 0;
             minutes++;
           }
-          const formatted = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+          if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+          }
+
+          let formatted;
+          if (hours > 0) {
+            formatted = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+          } else if (minutes > 0) {
+            formatted = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+          } else {
+            formatted = String(seconds);
+          }
+
           timerEl.textContent = formatted;
         }, 1000);
       }, 2000);
     }
+    document.getElementById("close-btn").addEventListener("click", function () {
+      // Stoppe den Timer
+      clearInterval(timerInterval);
+
+      // Zurück zur Eingabemaske
+      document.getElementById("checkin-container").style.display = "none";
+      document.querySelector(".input-section").style.display = "flex";
+
+      // Felder zurücksetzen
+      document.getElementById("fullName").value = "";
+      document.getElementById("location").value = "";
+      document.getElementById("profile-pic").src = "assets/anon.png";
+      document.getElementById("checkin-time").textContent = "";
+      document.getElementById("display-name").textContent = "";
+      document.getElementById("display-location").textContent = "";
+      document.getElementById("user-id").textContent = "";
+      document.getElementById("timer").textContent = "0";
+
+      // Eingabefelder und Buttons wieder anzeigen
+      document.querySelector('input[type="file"]').style.display = "none";
+      document.getElementById("upload-label").style.display = "inline-block";
+      document.getElementById("fullName").style.display = "block";
+      document.getElementById("location").style.display = "block";
+      document.querySelector('button').style.display = "inline-block";
+    });
 
   </script>
 </body>
